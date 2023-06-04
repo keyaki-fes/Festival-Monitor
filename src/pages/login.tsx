@@ -18,6 +18,7 @@ import {
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signIn } from 'next-auth/react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { z } from 'zod'
 
@@ -55,6 +56,8 @@ const Login = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password)
+        .then((credential) => credential.user.getIdToken(true))
+        .then((token) => signIn('credentials', { token }))
     } catch (error: any) {
       switch (error.code) {
         case 'auth/user-not-found':
