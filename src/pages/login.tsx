@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
+  Alert,
+  AlertIcon,
   Box,
   Text,
   FormControl,
@@ -15,10 +17,12 @@ import {
 } from '@chakra-ui/react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { z } from 'zod'
 
 import { festivalName } from '@/libs/constants'
+import { auth } from '@/libs/firebase'
 
 const schema = z.object({
   email: z
@@ -35,6 +39,7 @@ type FormValues = z.infer<typeof schema>
 
 const Login = () => {
   const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const {
     register,
     handleSubmit,
@@ -47,8 +52,22 @@ const Login = () => {
     },
   })
 
-  const onSubmit = async (data: any) => {
-    console.log(data)
+  const onSubmit = async (data: FormValues) => {
+    try {
+      await signInWithEmailAndPassword(auth, data.email, data.password)
+    } catch (error: any) {
+      switch (error.code) {
+        case 'auth/user-not-found':
+          setErrorMessage('ユーザーが見つかりませんでした。')
+          break
+        case 'auth/wrong-password':
+          setErrorMessage('パスワードが間違っています。')
+          break
+        default:
+          setErrorMessage('エラーが発生しました。')
+      }
+      console.error(error)
+    }
   }
 
   return (
@@ -102,17 +121,31 @@ const Login = () => {
             </FormErrorMessage>
           </FormControl>
         </Box>
-        <Button
-          type='submit'
-          colorScheme='blue'
-          variant='solid'
-          width='100%'
-          mt={8}
-          disabled={!isValid || isSubmitting}
-          isLoading={isSubmitting}
-        >
-          ログイン
-        </Button>
+        <Box mt={8}>
+          {errorMessage && (
+            <Alert
+              status='error'
+              mt={4}
+              rounded='md'
+              fontSize='sm'
+              color='red.500'
+            >
+              <AlertIcon />
+              {errorMessage}
+            </Alert>
+          )}
+          <Button
+            type='submit'
+            colorScheme='blue'
+            variant='solid'
+            width='100%'
+            mt={4}
+            disabled={!isValid || isSubmitting}
+            isLoading={isSubmitting}
+          >
+            ログイン
+          </Button>
+        </Box>
       </form>
     </Container>
   )
