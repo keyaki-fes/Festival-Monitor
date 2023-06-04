@@ -1,5 +1,7 @@
 // https://zenn.dev/yuku/articles/4eb8454079e680
 
+import { Noto_Sans_JP } from 'next/font/google'
+
 import { extendBaseTheme } from '@chakra-ui/react'
 import {
   Button as ButtonTheme,
@@ -11,6 +13,19 @@ import {
   Alert as AlertTheme,
   Select as SelectTheme,
 } from '@chakra-ui/theme/components'
+
+const notoSansJP = Noto_Sans_JP({
+  weight: ['400', '700'],
+  style: 'normal',
+  display: 'swap',
+  preload: false,
+})
+
+// https://github.com/chakra-ui/chakra-ui/discussions/7235
+const fonts = {
+  heading: notoSansJP.style.fontFamily,
+  body: notoSansJP.style.fontFamily,
+}
 
 const theme = extendBaseTheme({
   components: {
@@ -38,6 +53,7 @@ const theme = extendBaseTheme({
       '900': '#1e3a8a',
     },
   },
+  fonts,
 })
 
 export default theme
