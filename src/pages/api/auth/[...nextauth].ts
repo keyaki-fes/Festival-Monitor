@@ -10,7 +10,6 @@ export default NextAuth({
   providers: [
     CredentialsProvider({
       async authorize(credentials) {
-        console.log('credentials', credentials)
         const { token } = credentials as any
         if (token != null) {
           try {
@@ -30,9 +29,17 @@ export default NextAuth({
   callbacks: {
     jwt: async ({ token, user }) => {
       if (user) {
-        token = user as any
+        token = { ...token, ...user }
       }
       return token
+    },
+    session: async ({ session, token }) => {
+      session = {
+        uid: token.uid as string,
+        email: token.email as string,
+        isAdmin: token.isAdmin as boolean,
+      }
+      return session
     },
   },
 })
