@@ -12,10 +12,11 @@ import {
   Switch as SwitchTheme,
   Alert as AlertTheme,
   Select as SelectTheme,
+  Input as InputTheme,
 } from '@chakra-ui/theme/components'
 
 const notoSansJP = Noto_Sans_JP({
-  weight: ['400', '700'],
+  weight: ['400', '600', '700'],
   style: 'normal',
   display: 'swap',
   preload: false,
@@ -37,6 +38,7 @@ const theme = extendBaseTheme({
     Switch: SwitchTheme,
     Alert: AlertTheme,
     Select: SelectTheme,
+    Input: InputTheme,
   },
   colors: {
     // https://tailwindcss.com/docs/customizing-colors
