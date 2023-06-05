@@ -52,7 +52,6 @@ const Login = () => {
       password: '',
     },
   })
-
   const onSubmit = async (data: FormValues) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password)

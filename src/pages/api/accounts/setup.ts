@@ -22,7 +22,7 @@ export default async function handler(
     return
   }
 
-  const uid = session?.uid as string
+  const uid = session?.user?.uid
   if (!uid) {
     res.status(401).json({ message: 'Unauthorized' })
     return

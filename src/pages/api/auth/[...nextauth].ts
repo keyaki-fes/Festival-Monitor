@@ -1,4 +1,5 @@
 // https://zenn.dev/elpnt/articles/1af1047612992d
+// かなり適当に書いているので直したい...
 
 import NextAuth from 'next-auth'
 
@@ -35,9 +36,12 @@ export default NextAuth({
     },
     session: async ({ session, token }) => {
       session = {
-        uid: token.uid as string,
-        email: token.email as string,
-        isAdmin: token.isAdmin as boolean,
+        user: {
+          uid: token.uid as string,
+          email: token.email as string,
+          isAdmin: token.isAdmin as boolean,
+        },
+        expires: session.expires,
       }
       return session
     },
