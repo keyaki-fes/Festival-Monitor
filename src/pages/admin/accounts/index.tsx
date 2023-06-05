@@ -48,6 +48,10 @@ const Accounts: NextPageWithLayout = () => {
   // todo:自分自身のアカウントは編集できないようにする
   // todo:ドキュメントを書く
   // todo:アカウント一括作成機能を実装する
+  // todo:アカウント削除、権限変更機能を実装する
+  // todo:存在しているUIDか
+  // todo:すでに紐付けされているか
+  // todo:アカウント削除時に紐付け先も削除する
   const { data: session } = useSession()
   const router = useRouter()
   const [accountList, setAccountLisr] = useState<ListUsersResult | null>(null)
