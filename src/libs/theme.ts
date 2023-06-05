@@ -13,6 +13,7 @@ import {
   Alert as AlertTheme,
   Select as SelectTheme,
   Input as InputTheme,
+  Table as TableTheme,
 } from '@chakra-ui/theme/components'
 
 const notoSansJP = Noto_Sans_JP({
@@ -39,6 +40,7 @@ const theme = extendBaseTheme({
     Alert: AlertTheme,
     Select: SelectTheme,
     Input: InputTheme,
+    Table: TableTheme,
   },
   colors: {
     // https://tailwindcss.com/docs/customizing-colors
