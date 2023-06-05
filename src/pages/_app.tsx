@@ -14,7 +14,7 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <ChakraBaseProvider theme={theme}>
       <SessionProvider session={pageProps.session}>
-        <ToastContainer />
+        <ToastContainer theme='colored' />
         <Component {...pageProps} />
       </SessionProvider>
     </ChakraBaseProvider>

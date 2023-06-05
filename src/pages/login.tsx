@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'react-toastify'
 
+import { Link } from '@chakra-ui/next-js'
 import {
   Alert,
   AlertIcon,
@@ -22,7 +24,7 @@ import { signIn } from 'next-auth/react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { z } from 'zod'
 
-import { festivalName } from '@/libs/constants'
+import { festivalName, administrator } from '@/libs/constants'
 import { auth } from '@/libs/firebase'
 
 const schema = z.object({
@@ -57,6 +59,7 @@ const Login = () => {
       await signInWithEmailAndPassword(auth, data.email, data.password)
         .then((credential) => credential.user.getIdToken(true))
         .then((token) => signIn('credentials', { token }))
+      toast.success('ログインしました。')
     } catch (error: any) {
       switch (error.code) {
         case 'auth/user-not-found':
@@ -68,13 +71,14 @@ const Login = () => {
         default:
           setErrorMessage('エラーが発生しました。')
       }
+      toast.error('ログインに失敗しました。')
       console.error(error)
     }
   }
 
   return (
-    <Container maxW='container.sm'>
-      <Text fontSize='2xl' fontWeight='bold' textAlign='center' mt={8} mb={4}>
+    <Container maxW='580px'>
+      <Text fontSize='2xl' fontWeight='bold' textAlign='center' my={8}>
         {festivalName} コンテンツ管理システム
       </Text>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -149,6 +153,32 @@ const Login = () => {
           </Button>
         </Box>
       </form>
+      <Box
+        width='100%'
+        display='flex'
+        flexDirection='column'
+        mt={8}
+        fontSize='sm'
+        color='gray.500'
+      >
+        {administrator.name && <Text>運営:{administrator.name}</Text>}
+        {administrator.email && (
+          <Text>
+            メールアドレス:
+            <Link color='blue.500' href={`mailto:${administrator.email}`}>
+              {administrator.email}
+            </Link>
+          </Text>
+        )}
+        {administrator.url && (
+          <Text>
+            URL:
+            <Link color='blue.500' href={administrator.url}>
+              {administrator.url}
+            </Link>
+          </Text>
+        )}
+      </Box>
     </Container>
   )
 }
