@@ -126,7 +126,7 @@ const Accounts: NextPageWithLayout = () => {
           size='sm'
           rounded='md'
           leftIcon={<MdPersonAddAlt1 />}
-          onClick={() => router.push('/admin/accounts')}
+          onClick={() => router.push('/admin/accounts/create')}
         >
           アカウント作成
         </Button>
@@ -191,8 +191,14 @@ const Accounts: NextPageWithLayout = () => {
                       )}
                     </Td>
                     <Td>
-                      {dayjs(user.metadata.lastSignInTime).format(
-                        'YYYY/MM/DD HH:mm:ss'
+                      {user.metadata.lastSignInTime ? (
+                        <>
+                          {dayjs(user.metadata.lastSignInTime).format(
+                            'YYYY/MM/DD HH:mm:ss'
+                          )}
+                        </>
+                      ) : (
+                        '未ログイン'
                       )}
                     </Td>
                     <Td>{user.disabled ? '無効' : '有効'}</Td>

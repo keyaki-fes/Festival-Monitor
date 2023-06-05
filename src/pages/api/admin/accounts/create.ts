@@ -16,16 +16,24 @@ export default async function handler(
   }
 
   switch (req.method) {
-    case 'GET':
+    case 'POST':
       try {
-        const listUsersResult = await auth.listUsers()
-        res.status(200).json({ users: listUsersResult.users })
-      } catch (error) {
+        const { email, password } = req.body
+        await auth.createUser({
+          email,
+          password,
+        })
+        res.status(200).json({ message: 'Success' })
+      } catch (error: any) {
+        if (error.code === 'auth/email-already-exists') {
+          res.status(409).json({ message: 'Email already exists' })
+          return
+        }
         res.status(500).json({ message: 'Internal Server Error' })
       }
       break
     default:
-      res.setHeader('Allow', ['GET'])
+      res.setHeader('Allow', ['POST'])
       res.status(405).json({ message: `Method ${req.method} Not Allowed` })
       break
   }
