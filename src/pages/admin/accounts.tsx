@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 
+import type { NextPageWithLayout } from 'next'
 import { useRouter } from 'next/router'
 
 import {
@@ -29,7 +30,9 @@ import {
 } from 'react-icons/md'
 import { RiPencilFill } from 'react-icons/ri'
 
-const Accounts = () => {
+import { Layout } from '@/layouts/Layout'
+
+const Accounts: NextPageWithLayout = () => {
   // todo:CustomClaimの型を定義する
   // todo:react-tableなどでソートやフィルターを実装する
   // todo:自分自身のアカウントは編集できないようにする
@@ -160,5 +163,7 @@ const Accounts = () => {
     </Container>
   )
 }
+
+Accounts.getLayout = (page) => <Layout>{page}</Layout>
 
 export default Accounts
