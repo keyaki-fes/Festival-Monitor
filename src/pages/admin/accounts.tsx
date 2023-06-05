@@ -17,9 +17,13 @@ import {
   Th,
   Thead,
   Tr,
+  Switch,
 } from '@chakra-ui/react'
 
 import axios from 'axios'
+import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 import type { ListUsersResult } from 'firebase-admin/auth'
 import { useSession } from 'next-auth/react'
 import {
@@ -32,6 +36,12 @@ import { RiPencilFill } from 'react-icons/ri'
 
 import { Layout } from '@/layouts/Layout'
 
+import 'dayjs/locale/ja'
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.locale('ja')
+dayjs.tz.setDefault('Asia/Tokyo')
+
 const Accounts: NextPageWithLayout = () => {
   // todo:CustomClaimの型を定義する
   // todo:react-tableなどでソートやフィルターを実装する
@@ -41,6 +51,7 @@ const Accounts: NextPageWithLayout = () => {
   const { data: session } = useSession()
   const router = useRouter()
   const [accountList, setAccountLisr] = useState<ListUsersResult | null>(null)
+  const [isDetailOpen, setIsDetailOpen] = useState(false)
 
   useEffect(() => {
     axios
@@ -99,7 +110,7 @@ const Accounts: NextPageWithLayout = () => {
           </Text>
         </Box>
       </Box>
-      <Box display='flex' justifyContent='flex-end' mb={4} gap={2}>
+      <Box display='flex' justifyContent='flex-end' mb={3} gap={2}>
         <Button
           colorScheme='gray'
           variant='ghost'
@@ -120,6 +131,23 @@ const Accounts: NextPageWithLayout = () => {
           アカウント作成
         </Button>
       </Box>
+      <Box
+        display='flex'
+        alignItems='center'
+        justifyContent='flex-end'
+        gap={1}
+        mb={4}
+      >
+        <Text fontSize='0.95rem' color='gray.600' fontWeight='bold'>
+          詳細を表示
+        </Text>
+        <Switch
+          isChecked={isDetailOpen}
+          onChange={(e) => setIsDetailOpen(e.target.checked)}
+          size='md'
+          colorScheme='blue'
+        />
+      </Box>
 
       <TableContainer>
         <Table size='sm'>
@@ -128,6 +156,13 @@ const Accounts: NextPageWithLayout = () => {
               <Th>メールアドレス</Th>
               <Th>UID</Th>
               <Th>管理者権限</Th>
+              {isDetailOpen && (
+                <>
+                  <Th>作成日時</Th>
+                  <Th>最終ログイン日時</Th>
+                  <Th>アカウント状態</Th>
+                </>
+              )}
               <Th>編集</Th>
             </Tr>
           </Thead>
@@ -148,6 +183,21 @@ const Accounts: NextPageWithLayout = () => {
                   {user.uid}
                 </Td>
                 <Td>{user.customClaims?.isAdmin ? '管理者' : '一般'}</Td>
+                {isDetailOpen && (
+                  <>
+                    <Td>
+                      {dayjs(user.metadata.creationTime).format(
+                        'YYYY/MM/DD HH:mm:ss'
+                      )}
+                    </Td>
+                    <Td>
+                      {dayjs(user.metadata.lastSignInTime).format(
+                        'YYYY/MM/DD HH:mm:ss'
+                      )}
+                    </Td>
+                    <Td>{user.disabled ? '無効' : '有効'}</Td>
+                  </>
+                )}
                 <Td display='flex' alignItems='center'>
                   {session?.user?.email !== user.email ? (
                     <Icon as={RiPencilFill} boxSize={4} />
