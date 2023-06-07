@@ -14,6 +14,7 @@ import {
   Select as SelectTheme,
   Input as InputTheme,
   Table as TableTheme,
+  Spinner as SpinnerTheme,
 } from '@chakra-ui/theme/components'
 
 const notoSansJP = Noto_Sans_JP({
@@ -41,6 +42,7 @@ const theme = extendBaseTheme({
     Select: SelectTheme,
     Input: InputTheme,
     Table: TableTheme,
+    Spinner: SpinnerTheme,
   },
   colors: {
     // https://tailwindcss.com/docs/customizing-colors

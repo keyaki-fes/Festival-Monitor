@@ -34,6 +34,7 @@ import {
 } from 'react-icons/md'
 import { RiPencilFill } from 'react-icons/ri'
 
+import Loading from '@/components/Loading'
 import { Layout } from '@/layouts/Layout'
 
 import 'dayjs/locale/ja'
@@ -54,6 +55,7 @@ const Accounts: NextPageWithLayout = () => {
   // todo:アカウント削除時に紐付け先も削除する
   const { data: session } = useSession()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(true)
   const [accountList, setAccountLisr] = useState<ListUsersResult | null>(null)
   const [isDetailOpen, setIsDetailOpen] = useState(false)
 
@@ -62,6 +64,7 @@ const Accounts: NextPageWithLayout = () => {
       .get('/api/admin/accounts')
       .then((res) => {
         setAccountLisr(res.data as ListUsersResult)
+        setIsLoading(false)
       })
       .catch((err) => {
         console.error(err)
@@ -99,6 +102,10 @@ const Accounts: NextPageWithLayout = () => {
     a.click()
     a.remove()
     window.URL.revokeObjectURL(url)
+  }
+
+  if (isLoading) {
+    return <Loading />
   }
 
   return (
