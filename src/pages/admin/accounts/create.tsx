@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
@@ -16,12 +17,15 @@ import {
   FormErrorMessage,
   Alert,
   AlertIcon,
+  InputRightElement,
 } from '@chakra-ui/react'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import axios from 'axios'
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai'
 import { MdPersonAddAlt1 } from 'react-icons/md'
 import { z } from 'zod'
+
 
 import { Layout } from '@/layouts/Layout'
 
@@ -52,6 +56,9 @@ const schema = z
 type FormValues = z.infer<typeof schema>
 
 const Create: NextPageWithLayout = () => {
+  const [isPasswordShown, setIsPasswordShown] = useState(false)
+  const [isPasswordConfirmationShown, setIsPasswordConfirmationShown] =
+    useState(false)
   const {
     register,
     handleSubmit,
@@ -126,7 +133,28 @@ const Create: NextPageWithLayout = () => {
                 パスワード
               </FormLabel>
               <InputGroup>
-                <Input borderColor='gray.300' {...register('password')} />
+                <Input
+                  borderColor='gray.300'
+                  type={isPasswordShown ? 'text' : 'password'}
+                  {...register('password')}
+                />
+                <InputRightElement>
+                  <Button
+                    onClick={() => {
+                      setIsPasswordShown(!isPasswordShown)
+                    }}
+                    bg='none'
+                    _hover={{ bg: 'none' }}
+                    _active={{ bg: 'none' }}
+                    size='sm'
+                  >
+                    {isPasswordShown ? (
+                      <AiFillEye> </AiFillEye>
+                    ) : (
+                      <AiFillEyeInvisible></AiFillEyeInvisible>
+                    )}
+                  </Button>
+                </InputRightElement>
               </InputGroup>
               <FormErrorMessage fontSize='xs' color='red.500'>
                 {errors['password']?.message}
@@ -139,8 +167,28 @@ const Create: NextPageWithLayout = () => {
               <InputGroup>
                 <Input
                   borderColor='gray.300'
+                  type={isPasswordConfirmationShown ? 'text' : 'password'}
                   {...register('passwordConfirmation')}
                 />
+                <InputRightElement>
+                  <Button
+                    onClick={() => {
+                      setIsPasswordConfirmationShown(
+                        !isPasswordConfirmationShown
+                      )
+                    }}
+                    bg='none'
+                    _hover={{ bg: 'none' }}
+                    _active={{ bg: 'none' }}
+                    size='sm'
+                  >
+                    {isPasswordConfirmationShown ? (
+                      <AiFillEye> </AiFillEye>
+                    ) : (
+                      <AiFillEyeInvisible></AiFillEyeInvisible>
+                    )}
+                  </Button>
+                </InputRightElement>
               </InputGroup>
               <FormErrorMessage fontSize='xs' color='red.500'>
                 {errors['passwordConfirmation']?.message}
