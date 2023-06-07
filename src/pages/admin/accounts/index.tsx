@@ -217,7 +217,15 @@ const Accounts: NextPageWithLayout = () => {
                 )}
                 <Td display='flex' alignItems='center'>
                   {session?.user?.email !== user.email ? (
-                    <Icon as={RiPencilFill} boxSize={4} />
+                    <Icon
+                      as={RiPencilFill}
+                      boxSize={4}
+                      cursor='pointer'
+                      color='gray.600'
+                      transition='all 0.2s'
+                      _hover={{ color: 'gray.800' }}
+                      onClick={() => router.push(`/admin/accounts/${user.uid}`)}
+                    />
                   ) : (
                     <Icon as={RiPencilFill} boxSize={4} color='gray.300' />
                   )}

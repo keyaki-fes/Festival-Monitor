@@ -15,6 +15,7 @@ import {
   Input as InputTheme,
   Table as TableTheme,
   Spinner as SpinnerTheme,
+  Radio as RadioTheme,
 } from '@chakra-ui/theme/components'
 
 const notoSansJP = Noto_Sans_JP({
@@ -43,6 +44,7 @@ const theme = extendBaseTheme({
     Input: InputTheme,
     Table: TableTheme,
     Spinner: SpinnerTheme,
+    Radio: RadioTheme,
   },
   colors: {
     // https://tailwindcss.com/docs/customizing-colors

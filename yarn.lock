@@ -2213,6 +2213,11 @@ bluebird@^3.7.2:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
+boring-avatars@^1.10.0:
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/boring-avatars/-/boring-avatars-1.10.0.tgz#56103d3eaf0578e8e2d3136628253f722726253e"
+  integrity sha512-P3Bot5kWHY/RStkP8+KL5RKV4uQsYnxNEv7+x772lIj+O3fYy6AiUvcgSnUqpa2nPYiCiew4g+ytdRjfTE3tgA==
+
 bplist-parser@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/bplist-parser/-/bplist-parser-0.2.0.tgz#43a9d183e5bf9d545200ceac3e712f79ebbe8d0e"
