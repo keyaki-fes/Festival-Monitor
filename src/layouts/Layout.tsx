@@ -6,6 +6,7 @@ import { useRouter } from 'next/router'
 import { Link } from '@chakra-ui/next-js'
 import { Box, Text, Icon } from '@chakra-ui/react'
 
+import { useSession } from 'next-auth/react'
 import {
   MdManageAccounts,
   MdPersonAddAlt1,
@@ -15,6 +16,7 @@ import {
   MdOutlinePlaylistAdd,
   MdStore,
   MdAddBusiness,
+  MdHome,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -67,6 +69,8 @@ const LinkButton = ({
 
 export const Layout = ({ children }: LayoutProps) => {
   const router = useRouter()
+  const { data: session } = useSession()
+  const isAdmin = session?.user?.isAdmin
   const path = router.pathname
   return (
     <Box display={'flex'} flexDirection={'column'} w={'100vw'} minH={'100vh'}>
@@ -105,66 +109,71 @@ export const Layout = ({ children }: LayoutProps) => {
             mt={4}
             px={2}
           >
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
-              アカウント
-            </Text>
-            <LinkButton
-              path={path}
-              href={'/admin/accounts'}
-              icon={MdManageAccounts}
-              title={'アカウント管理'}
-            />
-            <LinkButton
-              path={path}
-              href={'/admin/accounts/create'}
-              icon={MdPersonAddAlt1}
-              title={'アカウント作成'}
-            />
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
-              模擬店
-            </Text>
-            <LinkButton
-              path={path}
-              href={'/admin/booths'}
-              icon={MdStore}
-              title={'模擬店管理'}
-            />
-            <LinkButton
-              path={path}
-              href={'/admin/booths/create'}
-              icon={MdAddBusiness}
-              title={'模擬店作成'}
-            />
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
-              イベント
-            </Text>
-            <LinkButton
-              path={path}
-              href={'/admin/events'}
-              icon={MdInsertChartOutlined}
-              title={'イベント管理'}
-            />
-            <LinkButton
-              path={path}
-              href={'/admin/events/create'}
-              icon={MdAddChart}
-              title={'イベント作成'}
-            />
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
-              お知らせ
-            </Text>
-            <LinkButton
-              path={path}
-              href={'/admin/notices'}
-              icon={MdOutlinePlaylistAddCheck}
-              title={'お知らせ管理'}
-            />
-            <LinkButton
-              path={path}
-              href={'/admin/notices/create'}
-              icon={MdOutlinePlaylistAdd}
-              title={'お知らせ作成'}
-            />
+            <LinkButton path={path} href={'/'} icon={MdHome} title={'ホーム'} />
+            {isAdmin && (
+              <>
+                <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+                  アカウント
+                </Text>
+                <LinkButton
+                  path={path}
+                  href={'/admin/accounts'}
+                  icon={MdManageAccounts}
+                  title={'アカウント管理'}
+                />
+                <LinkButton
+                  path={path}
+                  href={'/admin/accounts/create'}
+                  icon={MdPersonAddAlt1}
+                  title={'アカウント作成'}
+                />
+                <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+                  模擬店
+                </Text>
+                <LinkButton
+                  path={path}
+                  href={'/admin/booths'}
+                  icon={MdStore}
+                  title={'模擬店管理'}
+                />
+                <LinkButton
+                  path={path}
+                  href={'/admin/booths/create'}
+                  icon={MdAddBusiness}
+                  title={'模擬店作成'}
+                />
+                <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+                  イベント
+                </Text>
+                <LinkButton
+                  path={path}
+                  href={'/admin/events'}
+                  icon={MdInsertChartOutlined}
+                  title={'イベント管理'}
+                />
+                <LinkButton
+                  path={path}
+                  href={'/admin/events/create'}
+                  icon={MdAddChart}
+                  title={'イベント作成'}
+                />
+                <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+                  お知らせ
+                </Text>
+                <LinkButton
+                  path={path}
+                  href={'/admin/notices'}
+                  icon={MdOutlinePlaylistAddCheck}
+                  title={'お知らせ管理'}
+                />
+                <LinkButton
+                  path={path}
+                  href={'/admin/notices/create'}
+                  icon={MdOutlinePlaylistAdd}
+                  title={'お知らせ作成'}
+                />
+              </>
+            )}
           </Box>
         </Box>
         <Box flex={1} bg='#f9fbfb' overflowY='scroll' py={4} px={2}>

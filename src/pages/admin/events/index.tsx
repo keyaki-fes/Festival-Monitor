@@ -42,7 +42,7 @@ const EventIndex: NextPageWithLayout = () => {
 
   useEffect(() => {
     axios
-      .get('/api/events')
+      .get('/api/admin/events')
       .then((res) => {
         setEvents(res.data.events)
         setIsLoading(false)

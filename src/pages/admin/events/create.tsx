@@ -71,7 +71,7 @@ const Create: NextPageWithLayout = () => {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await axios.post('/api/events/create', values)
+      await axios.post('/api/admin/events/create', values)
       toast.success('イベントを作成しました。')
       reset()
     } catch (error) {

@@ -55,7 +55,7 @@ const Create: NextPageWithLayout = () => {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await axios.post('/api/booths/create', values)
+      await axios.post('/api/admin/booths/create', values)
       toast.success('模擬店情報を作成しました。')
       reset()
     } catch (error: any) {

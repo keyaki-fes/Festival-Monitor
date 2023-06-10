@@ -42,7 +42,7 @@ const BoothIndex: NextPageWithLayout = () => {
   const router = useRouter()
   useEffect(() => {
     axios
-      .get('/api/booths')
+      .get('/api/admin/booths')
       .then((res) => {
         setBooths(res.data.booths)
         setIsLoading(false)

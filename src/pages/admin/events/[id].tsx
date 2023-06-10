@@ -51,7 +51,7 @@ const EventId: NextPageWithLayout = () => {
     if (!router.isReady) return
     const { id } = router.query
     axios
-      .get(`/api/events/${id}`)
+      .get(`/api/admin/events/${id}`)
       .then((res) => {
         reset({
           name: res.data.name,
@@ -72,7 +72,7 @@ const EventId: NextPageWithLayout = () => {
 
   const onSubmit = async (values: FormValues) => {
     await axios
-      .post(`/api/events/${router.query.id}`, values)
+      .post(`/api/admin/events/${router.query.id}`, values)
       .then((res) => {
         toast.success('イベント情報を更新しました。')
         console.log(res)
@@ -85,7 +85,7 @@ const EventId: NextPageWithLayout = () => {
 
   const handleDelete = async () => {
     await axios
-      .delete(`/api/events/${router.query.id}`)
+      .delete(`/api/admin/events/${router.query.id}`)
       .then((res) => {
         toast.success('イベント情報を削除しました。')
         console.log(res)

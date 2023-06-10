@@ -53,7 +53,7 @@ const BoothId: NextPageWithLayout = () => {
     if (!router.isReady) return
     const { id } = router.query
     axios
-      .get(`/api/booths/${id}`)
+      .get(`/api/admin/booths/${id}`)
       .then((res) => {
         reset({
           id: res.data.id,
@@ -75,7 +75,7 @@ const BoothId: NextPageWithLayout = () => {
 
   const onSubmit = async (values: FormValues) => {
     await axios
-      .post(`/api/booths/${router.query.id}`, values)
+      .post(`/api/admin/booths/${router.query.id}`, values)
       .then((res) => {
         toast.success('模擬店情報を更新しました。')
         console.log(res)
@@ -88,7 +88,7 @@ const BoothId: NextPageWithLayout = () => {
 
   const handleDelete = async () => {
     await axios
-      .delete(`/api/booths/${router.query.id}`)
+      .delete(`/api/admin/booths/${router.query.id}`)
       .then((res) => {
         toast.success('模擬店情報を削除しました。')
         console.log(res)

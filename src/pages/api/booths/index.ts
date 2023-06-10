@@ -18,7 +18,12 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const token = (await getToken({ req, secret: authOptions.secret })) as any
-  if (!token || !token.isAdmin) {
+  if (!token) {
+    res.status(401).json({ message: 'Unauthorized' })
+    return
+  }
+  const id = token?.uid
+  if (!id) {
     res.status(401).json({ message: 'Unauthorized' })
     return
   }
@@ -26,28 +31,41 @@ export default async function handler(
   switch (req.method) {
     case 'GET':
       try {
-        const booths = await db.collection('booths').get()
-        const boothsData = booths.docs.map((doc) => {
-          const data = doc.data()
-          return {
-            id: doc.id,
-            name: data.name,
-            organizer: data.organizer,
-            location: data.location,
-            floor: data?.floor,
-            area: data?.area,
-            status: data.status,
-            waiting: data.waiting,
-          } as Booth
-        })
-        res.status(200).json({ booths: boothsData })
+        const doc = await db.collection('booths').doc(id).get()
+        if (!doc.exists) {
+          res.status(404).json({ message: 'Not Found' })
+          return
+        }
+        const data = doc.data() as any
+        const booth = {
+          id: doc.id,
+          name: data.name,
+          organizer: data?.organizer,
+          location: data.location,
+          floor: data?.floor,
+          area: data?.area,
+          status: data.status,
+          waiting: data.waiting,
+        } as Booth
+        res.status(200).json(booth)
       } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+      }
+      break
+    case 'POST':
+      try {
+        await db.collection('booths').doc(id).update({
+          status: req.body.status,
+          waiting: req.body.waiting,
+        })
+        res.status(200).json({ message: 'OK' })
+      } catch (error: any) {
         console.log(error)
         res.status(500).json({ message: 'Internal Server Error' })
       }
       break
     default:
-      res.setHeader('Allow', ['GET'])
+      res.setHeader('Allow', ['GET', 'POST'])
       res.status(405).json({ message: `Method ${req.method} Not Allowed` })
       break
   }

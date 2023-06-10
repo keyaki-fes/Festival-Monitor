@@ -40,7 +40,7 @@ const NoticeIndex: NextPageWithLayout = () => {
 
   useEffect(() => {
     axios
-      .get('/api/notices')
+      .get('/api/admin/notices')
       .then((res) => {
         setNotices(res.data.notices)
         setIsLoading(false)

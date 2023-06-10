@@ -1,6 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
+
+import { useRouter } from 'next/router'
 
 import { Link } from '@chakra-ui/next-js'
 import {
@@ -21,6 +23,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 import { signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai'
 import { z } from 'zod'
 
@@ -54,6 +57,14 @@ const Login = () => {
       password: '',
     },
   })
+  const router = useRouter()
+  const { data: session } = useSession()
+  useEffect(() => {
+    if (session) {
+      router.push('/')
+    }
+  }, [session])
+
   const onSubmit = async (data: FormValues) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password)

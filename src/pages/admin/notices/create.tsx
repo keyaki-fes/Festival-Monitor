@@ -69,7 +69,7 @@ const Create: NextPageWithLayout = () => {
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await axios.post('/api/notices/create', values)
+      await axios.post('/api/admin/notices/create', values)
       toast.success('お知らせを作成しました。')
       reset()
     } catch (error) {
