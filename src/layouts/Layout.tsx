@@ -12,6 +12,7 @@ import {
   MdAddChart,
   MdInsertChartOutlined,
   MdOutlinePlaylistAddCheck,
+  MdOutlinePlaylistAdd,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -140,6 +141,12 @@ export const Layout = ({ children }: LayoutProps) => {
               href={'/admin/notices'}
               icon={MdOutlinePlaylistAddCheck}
               title={'お知らせ管理'}
+            />
+            <LinkButton
+              path={path}
+              href={'/admin/notices/create'}
+              icon={MdOutlinePlaylistAdd}
+              title={'お知らせ作成'}
             />
           </Box>
         </Box>
