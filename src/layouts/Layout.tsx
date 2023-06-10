@@ -6,7 +6,12 @@ import { useRouter } from 'next/router'
 import { Link } from '@chakra-ui/next-js'
 import { Box, Text, Icon } from '@chakra-ui/react'
 
-import { MdManageAccounts, MdPersonAddAlt1, MdAddChart } from 'react-icons/md'
+import {
+  MdManageAccounts,
+  MdPersonAddAlt1,
+  MdAddChart,
+  MdInsertChartOutlined,
+} from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
 
@@ -117,8 +122,14 @@ export const Layout = ({ children }: LayoutProps) => {
             <LinkButton
               path={path}
               href={'/admin/events'}
-              icon={MdAddChart}
+              icon={MdInsertChartOutlined}
               title={'イベント管理'}
+            />
+            <LinkButton
+              path={path}
+              href={'/admin/events/create'}
+              icon={MdAddChart}
+              title={'イベント作成'}
             />
           </Box>
         </Box>

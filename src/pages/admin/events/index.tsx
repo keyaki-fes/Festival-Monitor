@@ -119,7 +119,7 @@ const EventIndex: NextPageWithLayout = () => {
             leftIcon={<MdAddChart />}
             onClick={() => router.push('/admin/events/create')}
           >
-            アカウント作成
+            イベント作成
           </Button>
         </Box>
         <TableContainer>
