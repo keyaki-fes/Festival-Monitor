@@ -2,7 +2,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 
 import { getToken } from 'next-auth/jwt'
 
-import { auth } from '@/libs/firebaseAdmin'
+import { auth, db } from '@/libs/firebaseAdmin'
 import authOptions from '@/pages/api/auth/[...nextauth]'
 
 export default async function handler(
@@ -56,12 +56,17 @@ export default async function handler(
       break
     case 'DELETE':
       try {
-        if (id !== token.id) {
-          await auth.deleteUser(id)
-        } else {
-          res.status(400).json({ message: 'Bad Request' })
-          return
+        const docRef = db.collection('booths').doc(id)
+        const doc = await docRef.get()
+        if (doc.exists) {
+          docRef.delete()
         }
+      } catch (error: any) {
+        res.status(500).json({ message: 'Internal Server Error' })
+      }
+
+      try {
+        await auth.deleteUser(id)
         res.status(200).json({ message: 'Success' })
       } catch (error: any) {
         if (error.code === 'auth/user-not-found') {
