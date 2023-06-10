@@ -19,7 +19,7 @@ import {
 } from '@chakra-ui/react'
 
 import axios from 'axios'
-import { MdEventNote, MdBookmarkAdd } from 'react-icons/md'
+import { MdStore, MdAddBusiness } from 'react-icons/md'
 import { RiPencilFill } from 'react-icons/ri'
 
 import Loading from '@/components/Loading'
@@ -60,7 +60,7 @@ const BoothIndex: NextPageWithLayout = () => {
     <>
       <Container maxW='container.xl'>
         <Box display='flex' flexDirection='row' alignItems='center' mb={4}>
-          <Icon as={MdEventNote} boxSize={8} mr={2} />
+          <Icon as={MdStore} boxSize={8} mr={2} />
           <Box>
             <Text fontSize='2xl' fontWeight='bold'>
               模擬店管理
@@ -75,16 +75,17 @@ const BoothIndex: NextPageWithLayout = () => {
             colorScheme='blue'
             size='sm'
             rounded='md'
-            leftIcon={<MdBookmarkAdd />}
+            leftIcon={<MdAddBusiness />}
             onClick={() => router.push('/admin/booths/create')}
           >
-            イベント作成
+            模擬店作成
           </Button>
         </Box>
         <TableContainer>
           <Table size='sm'>
             <Thead>
               <Tr>
+                <Th>ID</Th>
                 <Th>模擬店名</Th>
                 <Th>主催団体</Th>
                 <Th>開催場所</Th>
@@ -98,6 +99,7 @@ const BoothIndex: NextPageWithLayout = () => {
             <Tbody>
               {booths?.map((booth: Booth) => (
                 <Tr key={booth.id}>
+                  <Td>{booth.id}</Td>
                   <Td>{booth.name}</Td>
                   <Td>{booth.organizer}</Td>
                   <Td>{booth.location}</Td>

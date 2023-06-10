@@ -13,6 +13,8 @@ import {
   MdInsertChartOutlined,
   MdOutlinePlaylistAddCheck,
   MdOutlinePlaylistAdd,
+  MdStore,
+  MdAddBusiness,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -117,6 +119,21 @@ export const Layout = ({ children }: LayoutProps) => {
               href={'/admin/accounts/create'}
               icon={MdPersonAddAlt1}
               title={'アカウント作成'}
+            />
+            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+              模擬店
+            </Text>
+            <LinkButton
+              path={path}
+              href={'/admin/booths'}
+              icon={MdStore}
+              title={'模擬店管理'}
+            />
+            <LinkButton
+              path={path}
+              href={'/admin/booths/create'}
+              icon={MdAddBusiness}
+              title={'模擬店作成'}
             />
             <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
               イベント
