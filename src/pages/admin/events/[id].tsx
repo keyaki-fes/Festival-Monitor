@@ -83,6 +83,19 @@ const EventId: NextPageWithLayout = () => {
       })
   }
 
+  const handleDelete = async () => {
+    await axios
+      .delete(`/api/events/${router.query.id}`)
+      .then((res) => {
+        toast.success('イベント情報を削除しました。')
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error('イベント情報の削除に失敗しました。')
+        console.error(err)
+      })
+  }
+
   if (loading) {
     return <Loading />
   }
@@ -197,6 +210,9 @@ const EventId: NextPageWithLayout = () => {
             更新
           </Button>
         </form>
+        <Button mt={4} onClick={handleDelete} colorScheme='red' width='full'>
+          削除
+        </Button>
       </Container>
     </Container>
   )

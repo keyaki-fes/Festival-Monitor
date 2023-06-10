@@ -63,8 +63,16 @@ export default async function handler(
         res.status(500).json({ message: 'Internal Server Error' })
       }
       break
+    case 'DELETE':
+      try {
+        await db.collection('notices').doc(id).delete()
+        res.status(200).json({ message: 'OK' })
+      } catch (error) {
+        res.status(500).json({ message: 'Internal Server Error' })
+      }
+      break
     default:
-      res.setHeader('Allow', ['GET', 'POST'])
+      res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
       res.status(405).json({ message: `Method ${req.method} Not Allowed` })
       break
   }
