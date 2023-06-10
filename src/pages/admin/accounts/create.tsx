@@ -43,12 +43,13 @@ const schema = z
       .nonempty({ message: 'パスワードを入力してください。' })
       .min(6, { message: 'パスワードは6文字以上で入力してください。' }),
   })
-  .superRefine(({ password, passwordConfirmation }) => {
+  .superRefine(({ password, passwordConfirmation }, ctx) => {
     if (password !== passwordConfirmation) {
-      return {
+      ctx.addIssue({
         message: 'パスワードが一致しません。',
         path: ['passwordConfirmation'],
-      }
+        code: 'custom',
+      })
     }
   })
 
