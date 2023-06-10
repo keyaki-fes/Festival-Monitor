@@ -1,7 +1,9 @@
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify'
 
 import type { NextPageWithLayout } from 'next'
+import { useRouter } from 'next/router'
 
 import {
   Box,
@@ -24,42 +26,19 @@ import utc from 'dayjs/plugin/utc'
 import { MdAddChart } from 'react-icons/md'
 import { z } from 'zod'
 
-import { Layout } from '@/layouts/Layout'
+import { schema } from './create'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Tokyo')
-
-export const schema = z
-  .object({
-    name: z.string().nonempty({ message: 'イベント名を入力してください。' }),
-    organizer: z.string(),
-    location: z.string().nonempty({ message: '場所を入力してください。' }),
-    startAt: z.string().nonempty({ message: '日時を入力してください。' }),
-    endAt: z.string().nonempty({ message: '日時を入力してください。' }),
-  })
-  .superRefine(({ startAt, endAt }, ctx) => {
-    if (dayjs(startAt).isAfter(dayjs(endAt))) {
-      ctx.addIssue({
-        message: '開始日時が終了日時より後になっています。',
-        path: ['endAt'],
-        code: 'custom',
-      })
-    }
-  })
-  .superRefine(({ startAt, endAt }, ctx) => {
-    if (dayjs(startAt).isSame(dayjs(endAt))) {
-      ctx.addIssue({
-        message: '開始日時と終了日時が同じです。',
-        path: ['endAt'],
-        code: 'custom',
-      })
-    }
-  })
+import Loading from '@/components/Loading'
+import { Layout } from '@/layouts/Layout'
 
 type FormValues = z.infer<typeof schema>
 
-const Create: NextPageWithLayout = () => {
+const EventId: NextPageWithLayout = () => {
+  const [loading, setLoading] = useState(true)
+  const router = useRouter()
   const {
     register,
     handleSubmit,
@@ -68,16 +47,44 @@ const Create: NextPageWithLayout = () => {
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
   })
+  useEffect(() => {
+    if (!router.isReady) return
+    const { id } = router.query
+    axios
+      .get(`/api/events/${id}`)
+      .then((res) => {
+        reset({
+          name: res.data.name,
+          organizer: res.data.organizer,
+          location: res.data.location,
+          startAt: dayjs(res.data.startAt).format('YYYY-MM-DDTHH:mm'),
+          endAt: dayjs(res.data.endAt).format('YYYY-MM-DDTHH:mm'),
+        })
+      })
+      .catch((err) => {
+        toast.error('イベント情報の取得に失敗しました。')
+        console.error(err)
+      })
+      .finally(() => {
+        setLoading(false)
+      })
+  }, [router.isReady])
 
   const onSubmit = async (values: FormValues) => {
-    try {
-      await axios.post('/api/events/create', values)
-      toast.success('イベントを作成しました。')
-      reset()
-    } catch (error) {
-      console.log(error)
-      toast.error('エラーが発生しました。')
-    }
+    await axios
+      .post(`/api/events/${router.query.id}`, values)
+      .then((res) => {
+        toast.success('イベント情報を更新しました。')
+        console.log(res)
+      })
+      .catch((err) => {
+        toast.error('イベント情報の更新に失敗しました。')
+        console.error(err)
+      })
+  }
+
+  if (loading) {
+    return <Loading />
   }
 
   return (
@@ -86,10 +93,10 @@ const Create: NextPageWithLayout = () => {
         <Icon as={MdAddChart} boxSize={8} mr={2} />
         <Box>
           <Text fontSize='2xl' fontWeight='bold'>
-            イベント作成
+            イベント更新
           </Text>
           <Text fontSize='sm' color='gray.600'>
-            イベントを作成します。
+            イベント情報を更新します。
           </Text>
         </Box>
       </Box>
@@ -187,7 +194,7 @@ const Create: NextPageWithLayout = () => {
             disabled={!isValid || isSubmitting}
             isLoading={isSubmitting}
           >
-            作成
+            更新
           </Button>
         </form>
       </Container>
@@ -195,6 +202,6 @@ const Create: NextPageWithLayout = () => {
   )
 }
 
-Create.getLayout = (page) => <Layout>{page}</Layout>
+EventId.getLayout = (page) => <Layout>{page}</Layout>
 
-export default Create
+export default EventId

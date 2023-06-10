@@ -21,6 +21,7 @@ import {
 import axios from 'axios'
 import dayjs from 'dayjs'
 import { MdInsertChartOutlined, MdDownload, MdAddChart } from 'react-icons/md'
+import { RiPencilFill } from 'react-icons/ri'
 
 import Loading from '@/components/Loading'
 import { Layout } from '@/layouts/Layout'
@@ -131,6 +132,7 @@ const EventIndex: NextPageWithLayout = () => {
                 <Th>開催場所</Th>
                 <Th>開始時刻</Th>
                 <Th>終了時刻</Th>
+                <Th>編集</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -141,6 +143,17 @@ const EventIndex: NextPageWithLayout = () => {
                   <Td>{event.location}</Td>
                   <Td>{dayjs(event.startAt).format('YYYY/MM/DD HH:mm')}</Td>
                   <Td>{dayjs(event.endAt).format('YYYY/MM/DD HH:mm')}</Td>
+                  <Td>
+                    <Icon
+                      as={RiPencilFill}
+                      boxSize={4}
+                      cursor='pointer'
+                      color='gray.600'
+                      transition='all 0.2s'
+                      _hover={{ color: 'gray.800' }}
+                      onClick={() => router.push(`/admin/events/${event.id}`)}
+                    />
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
