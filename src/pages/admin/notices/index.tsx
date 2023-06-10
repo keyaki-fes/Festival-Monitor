@@ -64,7 +64,7 @@ const NoticeIndex: NextPageWithLayout = () => {
               お知らせ管理
             </Text>
             <Text fontSize='sm' color='gray.600'>
-              お知らせの一覧・編集を行います。
+              お知らせの管理を行います。
             </Text>
           </Box>
         </Box>
