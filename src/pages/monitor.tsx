@@ -31,13 +31,13 @@ const BoothCard = ({ booth }: { booth: Booth }) => {
   }
   const waitingTimeToColor = (waitingTime: number) => {
     if (waitingTime >= 30) {
-      return '#ed213a'
+      return '#EA3323'
     } else if (waitingTime >= 20) {
       return '#f7971e'
     } else if (waitingTime >= 10) {
       return '#16a34a'
     } else {
-      return '#2A0BCD'
+      return '#2952BD'
     }
   }
   return (
@@ -246,7 +246,6 @@ export default function Home({ events }: { events: Event[] }) {
   const [index, setIndex] = useState<number>(0)
   const [notices, setNotices] = useState<string[] | null>([])
   const [booths, setBooths] = useState<Booth[] | null>(null)
-  const [boothsLength, setBoothsLength] = useState<number>(0)
 
   //今後行われるイベントのみを抽出
   const [upcomingEvents, setUpcomingEvents] = useState<Event[]>([])
@@ -273,7 +272,7 @@ export default function Home({ events }: { events: Event[] }) {
 
   const getBooths = async () => {
     await axios
-      .get('/api/booths')
+      .get('/api/booths/list')
       .then((res) => {
         const booths = res.data.booths
         booths.sort((a: any, b: any) => {
@@ -307,31 +306,23 @@ export default function Home({ events }: { events: Event[] }) {
   }, [])
 
   useEffect(() => {
-    if (booths) {
-      setBoothsLength(booths.length)
-    }
-  }, [booths])
-
-  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((index) => {
         if (loading || !booths) {
           return 0
         }
-        if (index == Math.ceil(boothsLength / 7)) {
+        if (index == Math.ceil(booths.length / 7)) {
           return 0
         }
         return index + 1
       })
     }, 1000 * 12)
     return () => clearInterval(interval)
-  }, [boothsLength])
+  }, [booths])
 
   if (loading || !booths) {
     return <Loading />
   }
-
-  console.log(boothsLength, index)
 
   return (
     <>
@@ -348,7 +339,7 @@ export default function Home({ events }: { events: Event[] }) {
             justifyContent='start'
             gap={3}
           >
-            {index == Math.ceil(boothsLength / 7) && (
+            {index == Math.ceil(booths.length / 7) && (
               <>
                 {upcomingEvents.length == 0 ? (
                   <Text
@@ -368,7 +359,7 @@ export default function Home({ events }: { events: Event[] }) {
                 )}
               </>
             )}
-            {index != Math.ceil(boothsLength / 7) && (
+            {index != Math.ceil(booths.length / 7) && (
               <>
                 {booths
                   ?.slice(index * 7, index * 7 + 7)

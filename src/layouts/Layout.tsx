@@ -17,6 +17,7 @@ import {
   MdStore,
   MdAddBusiness,
   MdHome,
+  MdOutlineLogout,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -174,6 +175,15 @@ export const Layout = ({ children }: LayoutProps) => {
                 />
               </>
             )}
+            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+              その他
+            </Text>
+            <LinkButton
+              href={'/logout'}
+              path={path}
+              icon={MdOutlineLogout}
+              title={'ログアウト'}
+            />
           </Box>
         </Box>
         <Box flex={1} bg='#f9fbfb' overflowY='scroll' py={4} px={2}>
