@@ -11,6 +11,7 @@ import {
   MdPersonAddAlt1,
   MdAddChart,
   MdInsertChartOutlined,
+  MdOutlinePlaylistAddCheck,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -130,6 +131,15 @@ export const Layout = ({ children }: LayoutProps) => {
               href={'/admin/events/create'}
               icon={MdAddChart}
               title={'イベント作成'}
+            />
+            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+              お知らせ
+            </Text>
+            <LinkButton
+              path={path}
+              href={'/admin/notices'}
+              icon={MdOutlinePlaylistAddCheck}
+              title={'お知らせ管理'}
             />
           </Box>
         </Box>

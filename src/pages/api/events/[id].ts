@@ -68,7 +68,7 @@ export default async function handler(
       }
       break
     default:
-      res.setHeader('Allow', ['GET'])
+      res.setHeader('Allow', ['GET', 'POST'])
       res.status(405).json({ message: `Method ${req.method} Not Allowed` })
       break
   }
