@@ -16,7 +16,7 @@ export default async function handler(
   }
 
   const { id } = req.query
-  if (!id || Array.isArray(id)) {
+  if (!id || Array.isArray(id) || id === token.uid) {
     res.status(400).json({ message: 'Bad Request' })
     return
   }

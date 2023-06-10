@@ -60,6 +60,7 @@ const AccountId: NextPageWithLayout = () => {
   )
   const { data: session } = useSession()
   const router = useRouter()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   useEffect(() => {
     if (!session || !router.isReady) return
@@ -93,6 +94,7 @@ const AccountId: NextPageWithLayout = () => {
 
   const handleUpdateAdmin = () => {
     if (!accountInfo) return
+    setIsSubmitting(true)
     axios
       .post(`/api/admin/accounts/${accountInfo.user.uid}`, {
         isAdmin: isAdminChecked === 'true',
@@ -104,10 +106,14 @@ const AccountId: NextPageWithLayout = () => {
         console.log(err)
         toast.error('エラーが発生しました。')
       })
+      .finally(() => {
+        setIsSubmitting(false)
+      })
   }
 
   const handleDeleteAccount = () => {
     if (!accountInfo) return
+    setIsSubmitting(true)
     axios
       .delete(`/api/admin/accounts/${accountInfo.user.uid}`)
       .then(() => {
@@ -118,10 +124,24 @@ const AccountId: NextPageWithLayout = () => {
         console.log(err)
         toast.error('エラーが発生しました。')
       })
+      .finally(() => {
+        setIsSubmitting(false)
+      })
   }
 
   if (isLoading) {
     return <Loading />
+  }
+
+  if (!accountInfo) {
+    return (
+      <Container maxW='container.xl'>
+        <Alert status='error' color='red.800' rounded='md'>
+          <AlertIcon />
+          アカウントが見つからなかったか、エラーが発生しました。
+        </Alert>
+      </Container>
+    )
   }
 
   return (
@@ -179,7 +199,7 @@ const AccountId: NextPageWithLayout = () => {
         px={4}
         py={4}
         border='1px'
-        borderColor='gray.200'
+        borderColor='gray.300'
         rounded='md'
         mt={4}
       >
@@ -196,7 +216,12 @@ const AccountId: NextPageWithLayout = () => {
               <Radio value='false'>一般ユーザー</Radio>
             </Stack>
           </RadioGroup>
-          <Button colorScheme='blue' size='sm' onClick={handleUpdateAdmin}>
+          <Button
+            colorScheme='blue'
+            size='sm'
+            onClick={handleUpdateAdmin}
+            isLoading={isSubmitting}
+          >
             更新
           </Button>
           <Alert
@@ -223,7 +248,12 @@ const AccountId: NextPageWithLayout = () => {
           アカウントの削除
         </Text>
         <Box display='flex' flexDirection='column' gap={3}>
-          <Button colorScheme='red' size='sm' onClick={handleDeleteAccount}>
+          <Button
+            colorScheme='red'
+            size='sm'
+            onClick={handleDeleteAccount}
+            isLoading={isSubmitting}
+          >
             削除
           </Button>
           <Alert
