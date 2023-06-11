@@ -3,6 +3,7 @@
 ![festival monitor](./festival-monitor.png)
 
 文化祭で各模擬店の混雑状況（待ち時間）やタイムテーブルを管理し、電子掲示板上で表示するための Web アプリです。
+
 詳細は[ドキュメント](./docs/index.md)を参考にしてください。
 
 ## 利用にあたって
@@ -15,7 +16,8 @@
 ## 謝辞
 
 本ソフトウェアは、[kss-pc-club/Fes-Monitor](https://github.com/kss-pc-club/Fes-Monitor/tree/main) を参考に制作されました。
-上記ソフトウェアの開発者でもある [Asa(a01sa01to)](https://twitter.com/a01sa01to) さんには本ソフトウェアの制作にあたって技術的支援をいただきました。ありがとうございます。
+
+上記ソフトウェアの開発者でもある [Asa(a01sa01to)](https://github.com/a01sa01to) さんには本ソフトウェアの制作にあたって技術的支援をいただきました。ありがとうございます。
 また、以下のコードについては、Asa さんが実装されたコードを参考にしています。
 
 - [.eslintrc.js](./.eslintrc.js)
