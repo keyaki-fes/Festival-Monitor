@@ -21,6 +21,6 @@
 また、以下のコードについては、Asa さんが実装されたコードを参考にしています。
 
 - [.eslintrc.js](./.eslintrc.js)
-- [.prettier.config.js](./.prettier.config.js)
+- [prettier.config.js](./prettier.config.js)
 - [.lintstagedrc.js](./.lintstagedrc.js)
 - [.husky](./.husky)
