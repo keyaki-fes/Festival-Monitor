@@ -1,38 +1,23 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Festival Monitor
 
-## Getting Started
+![festival monitor](./festival-monitor.png)
 
-First, run the development server:
+文化祭で各模擬店の混雑状況（待ち時間）やタイムテーブルを管理し、電子掲示板上で表示するための Web アプリです。
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+## 利用にあたって
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- 利用にあたっては、利用される方が各自で Firebase の設定を行い、本アプリケーションを任意のホスティングサービスへデプロイする必要があります。費用がかかることもあるのでご注意ください。
+- 利用にあたっては各学校の文化祭運営状況に合わせてカスタマイズを加えていただければと思います。追加で実装した機能、修正した点などがある場合はよろしければ本リポジトリまで PR いただけると嬉しいです。
+- このほか利用報告は [@eno1220](https://twitter.com/1220_eno) の DM 等でお待ちしております。本ソフトウェアの各学校の文化祭における運営方法などを教えていただけると eno1220 が喜びます。
+- 不具合報告や機能リクエストについても Twitter や Issue より受け付けています。また PR も歓迎しております。
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## 謝辞
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+本ソフトウェアは、[kss-pc-club/Fes-Monitor](https://github.com/kss-pc-club/Fes-Monitor/tree/main) を参考に制作されました。
+上記ソフトウェアの開発者でもある [Asa(a01sa01to)](https://twitter.com/a01sa01to) さんには本ソフトウェアの制作にあたって技術的支援をいただきました。ありがとうございます。
+また、以下のコードについては、Asa さんが実装されたコードを参考にしています。
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- [.eslintrc.js](./.eslintrc.js)
+- [.prettier.config.js](./.prettier.config.js)
+- [.lintstagedrc.js](./.lintstagedrc.js)
+- [.husky](./.husky)

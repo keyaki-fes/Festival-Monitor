@@ -11,9 +11,11 @@ dayjs.extend(timezone)
 dayjs.tz.setDefault('Asia/Tokyo')
 
 import Loading from '@/components/Loading'
+import { monitorSettings } from '@/libs/constants'
 import { db } from '@/libs/firebaseAdmin'
 import type { Booth } from '@/pages/admin/booths'
 import type { Event } from '@/pages/admin/events'
+
 
 const BoothCard = ({ booth }: { booth: Booth }) => {
   const statusToString = (
@@ -301,7 +303,7 @@ export default function Home({ events }: { events: Event[] }) {
       getNotices()
       getBooths()
       getUpcomingEvents()
-    }, 1000 * 60 * 5)
+    }, 1000 * 60 * monitorSettings.refreshInterval)
     return () => clearInterval(interval)
   }, [])
 
@@ -316,7 +318,7 @@ export default function Home({ events }: { events: Event[] }) {
         }
         return index + 1
       })
-    }, 1000 * 12)
+    }, 1000 * monitorSettings.duration)
     return () => clearInterval(interval)
   }, [booths])
 
