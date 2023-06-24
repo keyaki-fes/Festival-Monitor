@@ -6,8 +6,8 @@ import utc from 'dayjs/plugin/utc'
 import { getToken } from 'next-auth/jwt'
 
 import { db } from '@/libs/firebaseAdmin'
-import type { Booth } from '@/pages/admin/booths'
 import authOptions from '@/pages/api/auth/[...nextauth]'
+import { Booth } from '@/types/booth'
 
 dayjs.extend(utc)
 dayjs.extend(timezone)

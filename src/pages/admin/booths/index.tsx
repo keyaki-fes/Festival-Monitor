@@ -24,17 +24,7 @@ import { RiPencilFill } from 'react-icons/ri'
 
 import Loading from '@/components/Loading'
 import { Layout } from '@/layouts/Layout'
-
-export type Booth = {
-  id: string
-  name: string
-  organizer: string
-  location: string
-  floor?: string
-  area?: string
-  status: 'open' | 'closed' | 'break' | 'preparing'
-  waiting: number
-}
+import { Booth } from '@/types/booth'
 
 const BoothIndex: NextPageWithLayout = () => {
   const [booths, setBooths] = useState<Booth[] | null>(null)

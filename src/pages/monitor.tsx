@@ -13,9 +13,8 @@ dayjs.tz.setDefault('Asia/Tokyo')
 import Loading from '@/components/Loading'
 import { monitorSettings } from '@/libs/constants'
 import { db } from '@/libs/firebaseAdmin'
-import type { Booth } from '@/pages/admin/booths'
-import type { Event } from '@/pages/admin/events'
-
+import { Booth } from '@/types/booth'
+import { Event } from '@/types/event'
 
 const BoothCard = ({ booth }: { booth: Booth }) => {
   const statusToString = (

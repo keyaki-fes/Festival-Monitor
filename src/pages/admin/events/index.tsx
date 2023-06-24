@@ -26,15 +26,6 @@ import { RiPencilFill } from 'react-icons/ri'
 import Loading from '@/components/Loading'
 import { Layout } from '@/layouts/Layout'
 
-export type Event = {
-  id: string
-  name: string
-  organizer?: string
-  location: string
-  startAt: string
-  endAt: string
-}
-
 const EventIndex: NextPageWithLayout = () => {
   const router = useRouter()
   const [events, setEvents] = useState<Event[] | null>(null)
