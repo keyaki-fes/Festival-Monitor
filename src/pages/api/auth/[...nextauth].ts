@@ -7,6 +7,8 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { firebaseAdmin } from '@/libs/firebaseAdmin'
 
+console.log('ENV SECRET', process.env.NEXTAUTH_SECRET)
+
 export default NextAuth({
   providers: [
     CredentialsProvider({
@@ -15,6 +17,7 @@ export default NextAuth({
         if (token != null) {
           try {
             const decoded = await firebaseAdmin.auth().verifyIdToken(token)
+            console.log(decoded)
             return { ...decoded }
           } catch (error) {
             console.log('Failed to verify ID token:', error)
@@ -25,7 +28,7 @@ export default NextAuth({
       },
     }),
   ],
-  secret: process.env.SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   session: { strategy: 'jwt' },
   callbacks: {
     jwt: async ({ token, user }) => {

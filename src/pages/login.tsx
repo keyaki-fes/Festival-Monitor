@@ -68,7 +68,9 @@ const Login = () => {
   const onSubmit = async (data: FormValues) => {
     try {
       await signInWithEmailAndPassword(auth, data.email, data.password)
+        // UserCredentialオブジェクトを返すPromiseが返ってくる
         .then((credential) => credential.user.getIdToken(true))
+        // NextAuthのsignInメソッド / CredentialsProviderのauthorizeメソッドで利用するtokenを渡している
         .then((token) => signIn('credentials', { token }))
       toast.success('ログインしました。')
     } catch (error: any) {
