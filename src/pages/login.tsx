@@ -33,8 +33,17 @@ import { auth } from '@/libs/firebase'
 const schema = z.object({
   email: z
     .string()
-    .nonempty({ message: 'メールアドレスを入力してください。' })
-    .email(),
+    .min(1, { message: 'メールアドレスを入力してください。' })
+    .refine(
+      (value) => {
+        const emailRegex =
+          /^[a-zA-Z0-9._%+-]+@(?:[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}|[a-zA-Z0-9._%+-]+@m\.mie-u\.ac\.jp)$/
+        return emailRegex.test(value)
+      },
+      {
+        message: '無効なメールアドレス形式です。',
+      }
+    ),
   password: z
     .string()
     .nonempty({ message: 'パスワードを入力してください。' })
