@@ -16,8 +16,8 @@ const BoothSetting: NextPageWithLayout = () => {
   const [datas, setDatas] = useState<any>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
-  const [status, setStatus] = useState<string>('')
-  const [waiting, setWaiting] = useState<number>(0)
+  const [status, setStatus] = useState<string[]>([''])
+  const [waiting, setWaiting] = useState<number[]>([0])
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
@@ -35,6 +35,8 @@ const BoothSetting: NextPageWithLayout = () => {
           }
         })
         setDatas(booths)
+        setStatus(booths.map((booth: Booth) => booth.status))
+        setWaiting(booths.map((booth: Booth) => booth.waiting))
         setIsLoading(false)
         console.log(datas)
       })
@@ -44,12 +46,23 @@ const BoothSetting: NextPageWithLayout = () => {
       })
   }, [router.isReady])
 
-  const handleUpdate = async () => {
+  const changeStatus = (value: string, index: number) => {
+    const copyStatusArray = [...status]
+    copyStatusArray[index] = value
+    setStatus(copyStatusArray)
+  }
+  const changeWaiting = (value: number, index: number) => {
+    const copyWaitingArray = [...waiting]
+    copyWaitingArray[index] = value
+    setWaiting(copyWaitingArray)
+  }
+
+  const handleUpdate = async (index: number) => {
     setIsSubmitting(true)
     await axios
       .post(`/api/booths`, {
-        status: status,
-        waiting: status === 'open' ? waiting : 0,
+        status: status[index],
+        waiting: status[index] === 'open' ? waiting[index] : 0,
       })
       .then((res) => {
         setIsSubmitting(false)
@@ -79,7 +92,7 @@ const BoothSetting: NextPageWithLayout = () => {
   }
   return (
     <>
-      {datas.map((data: Booth, i: any) => (
+      {datas.map((data: Booth, i: number) => (
         <Container maxW='container.lg' mt={8} key={i}>
           <Box
             bg='white'
@@ -137,10 +150,10 @@ const BoothSetting: NextPageWithLayout = () => {
                 ステータス
               </Text>
               <Select
-                value={status}
+                value={status[i]}
                 size='sm'
                 rounded='md'
-                onChange={(e) => setStatus(e.target.value)}
+                onChange={(e) => changeStatus(e.target.value, i)}
               >
                 <option value='open'>開店</option>
                 <option value='closed'>閉店</option>
@@ -148,7 +161,7 @@ const BoothSetting: NextPageWithLayout = () => {
                 <option value='break'>中断中</option>
               </Select>
             </Box>
-            {status === 'open' && (
+            {status[i] === 'open' && (
               <Box
                 display='flex'
                 flexDirection='column'
@@ -160,10 +173,10 @@ const BoothSetting: NextPageWithLayout = () => {
                   待ち時間
                 </Text>
                 <Select
-                  value={waiting}
+                  value={waiting[i]}
                   size='sm'
                   rounded='md'
-                  onChange={(e) => setWaiting(Number(e.target.value))}
+                  onChange={(e) => changeWaiting(Number(e.target.value), i)}
                 >
                   <option value={0}>0分</option>
                   <option value={5}>5分</option>
@@ -181,7 +194,7 @@ const BoothSetting: NextPageWithLayout = () => {
               width='100%'
               size='sm'
               isLoading={isSubmitting}
-              onClick={handleUpdate}
+              onClick={() => handleUpdate(i)}
             >
               更新
             </Button>
