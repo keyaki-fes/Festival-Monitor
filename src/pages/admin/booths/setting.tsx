@@ -8,7 +8,6 @@ import { Container, Box, Text, Select, Button } from '@chakra-ui/react'
 
 import axios from 'axios'
 
-
 import Loading from '@/components/Loading'
 import { Layout } from '@/layouts/Layout'
 import { Booth } from '@/types/booth'
@@ -24,24 +23,6 @@ const BoothSetting: NextPageWithLayout = () => {
 
   useEffect(() => {
     if (!router.isReady) return
-    //   axios
-    //     .get(`/api/booths/list`)
-    //     .then((res) => {
-    //       setDatas(res.data)
-    //       setStatus(res.data.status)
-    //       setWaiting(res.data.waiting)
-    //       setIsLoading(false)
-    //     })
-    //     .catch((err) => {
-    //       console.error(err)
-    //       if (err.response.status === 404) {
-    //         setError('このアカウントに紐づけられた模擬店がありません')
-    //       } else {
-    //         setError('エラーが発生しました')
-    //       }
-    //       setIsLoading(false)
-    //     })
-    // }
     axios
       .get('/api/booths/list')
       .then((res) => {
