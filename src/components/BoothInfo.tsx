@@ -10,6 +10,8 @@ dayjs.tz.setDefault('Asia/Tokyo')
 import { Booth } from '@/types/booth'
 
 const BoothInfo = ({ booth }: { booth: Booth }) => {
+  console.log(booth.memo)
+  console.log('adddada')
   const statusToString = (
     status: 'open' | 'closed' | 'break' | 'preparing'
   ) => {
@@ -94,9 +96,9 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
             color='white'
             fontWeight='bold'
             lineHeight={'100%'}
-            w={36}
           >
-            {booth.organizer}
+            {booth.organizer}{' '}
+            {booth.memo ? '   [お知らせ: ' + booth.memo + ' ]' : ''}
           </Text>
         </Box>
       </Box>
