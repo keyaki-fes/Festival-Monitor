@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 import { NextPageWithLayout } from 'next'
 import { useRouter } from 'next/router'
 
-import { Container, Box, Text, Select, Button } from '@chakra-ui/react'
+import { Container, Box, Text, Select, Button, Input } from '@chakra-ui/react'
 
 import axios from 'axios'
 
@@ -17,6 +17,7 @@ const Home: NextPageWithLayout = () => {
   const [error, setError] = useState<string | null>(null)
   const [status, setStatus] = useState<string>('')
   const [waiting, setWaiting] = useState<number>(0)
+  const [memo, setMemo] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
@@ -41,12 +42,18 @@ const Home: NextPageWithLayout = () => {
       })
   }, [router.isReady])
 
+  const handleMemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setMemo(event.target.value)
+    console.log(memo)
+  }
+
   const handleUpdate = async () => {
     setIsSubmitting(true)
     await axios
       .post(`/api/booths`, {
         status: status,
         waiting: status === 'open' ? waiting : 0,
+        memo: memo ? memo : '',
       })
       .then((res) => {
         setIsSubmitting(false)
@@ -145,31 +152,49 @@ const Home: NextPageWithLayout = () => {
             </Select>
           </Box>
           {status === 'open' && (
-            <Box
-              display='flex'
-              flexDirection='column'
-              alignItems='start'
-              gap={1}
-              width='100%'
-            >
-              <Text fontSize='0.9rem' fontWeight='bold' color='gray.600'>
-                待ち時間
-              </Text>
-              <Select
-                value={waiting}
-                size='sm'
-                rounded='md'
-                onChange={(e) => setWaiting(Number(e.target.value))}
+            <>
+              <Box
+                display='flex'
+                flexDirection='column'
+                alignItems='start'
+                gap={1}
+                width='100%'
               >
-                <option value={0}>0分</option>
-                <option value={5}>5分</option>
-                <option value={10}>10分</option>
-                <option value={15}>15分</option>
-                <option value={20}>20分</option>
-                <option value={25}>25分</option>
-                <option value={30}>30分以上</option>
-              </Select>
-            </Box>
+                <Text fontSize='0.9rem' fontWeight='bold' color='gray.600'>
+                  待ち時間
+                </Text>
+                <Select
+                  value={waiting}
+                  size='sm'
+                  rounded='md'
+                  onChange={(e) => setWaiting(Number(e.target.value))}
+                >
+                  <option value={0}>0分</option>
+                  <option value={5}>5分</option>
+                  <option value={10}>10分</option>
+                  <option value={15}>15分</option>
+                  <option value={20}>20分</option>
+                  <option value={25}>25分</option>
+                  <option value={30}>30分以上</option>
+                </Select>
+              </Box>
+              <Box
+                display='flex'
+                flexDirection='column'
+                alignItems='start'
+                gap={1}
+                width='100%'
+              >
+                <Text fontSize='0.9rem' fontWeight='bold' color='gray.600'>
+                  ひとことメモ
+                </Text>
+                <Input
+                  placeholder={memo ?? 'ひとことメモ'}
+                  value={memo ?? ''}
+                  onChange={handleMemoChange}
+                ></Input>
+              </Box>
+            </>
           )}
           <Button
             colorScheme='blue'
