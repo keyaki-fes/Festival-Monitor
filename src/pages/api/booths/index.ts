@@ -57,6 +57,7 @@ export default async function handler(
         await db.collection('booths').doc(id).update({
           status: req.body.status,
           waiting: req.body.waiting,
+          memo: req.body.memo,
         })
         res.status(200).json({ message: 'OK' })
       } catch (error: any) {
