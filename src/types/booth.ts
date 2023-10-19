@@ -5,6 +5,7 @@ export interface Booth {
   location: string
   floor?: string
   area?: string
+  memo?: string
   status: 'open' | 'closed' | 'break' | 'preparing'
   waiting: number
 }
