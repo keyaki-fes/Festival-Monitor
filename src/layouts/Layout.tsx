@@ -18,6 +18,7 @@ import {
   MdAddBusiness,
   MdHome,
   MdOutlineLogout,
+  MdSettings,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -142,6 +143,12 @@ export const Layout = ({ children }: LayoutProps) => {
                   href={'/admin/booths/create'}
                   icon={MdAddBusiness}
                   title={'模擬店作成'}
+                />
+                <LinkButton
+                  path={path}
+                  href={'/admin/booths/setting'}
+                  icon={MdSettings}
+                  title={'模擬店設定'}
                 />
                 <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
                   イベント
