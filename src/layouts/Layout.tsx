@@ -46,7 +46,7 @@ const LinkButton = ({
       alignItems={'center'}
       flexDirection={'row'}
       gap={2}
-      px={2}
+      px={[1, 2]}
       py='0.3rem'
       rounded={'md'}
       color='gray.700'
@@ -86,18 +86,28 @@ export const Layout = ({ children }: LayoutProps) => {
         alignItems={'center'}
         backgroundColor={'white'}
       >
-        <Text fontSize={'lg'} fontWeight={'bold'} color='gray.700' ml={2}>
+        <Text
+          fontSize={['sm', 'lg']}
+          fontWeight={'bold'}
+          color='gray.700'
+          ml={2}
+        >
           {festivalName} コンテンツ管理システム
         </Text>
       </Box>
-      <Box w={'100%'} display={'flex'} flexDirection={'row'} flex={1}>
+      <Box
+        w={'100%'}
+        display={'flex'}
+        flexDirection={['column', 'column', 'row']}
+        flex={1}
+      >
         <Box
-          w={'260px'}
+          w={['auto', 'auto', '230px']}
           minH={'100%'}
           borderRight={'1px solid'}
           borderColor={'gray.200'}
           display={'flex'}
-          flexDirection={'column'}
+          flexDirection={['row', 'row', 'column']}
           alignItems={'center'}
           boxShadow={'6px 0px 10px -8px rgba(0, 0, 0, 0.4)'}
           backgroundColor={'white'}
@@ -106,7 +116,7 @@ export const Layout = ({ children }: LayoutProps) => {
           <Box
             w={'100%'}
             display={'flex'}
-            flexDirection={'column'}
+            flexDirection={['row', 'row', 'column']}
             gap={0.5}
             mt={4}
             px={2}
