@@ -48,7 +48,7 @@ const LinkButton = ({
       alignItems={'center'}
       flexDirection={'row'}
       gap={2}
-      px={[1, 2]}
+      px={2}
       py='0.3rem'
       rounded={'md'}
       color='gray.700'
@@ -63,8 +63,8 @@ const LinkButton = ({
         },
       })}
     >
-      <Icon as={icon} boxSize={4} />
-      <Text fontSize={'0.9rem'} fontWeight={'bold'}>
+      <Icon as={icon} boxSize={[3, 4]} />
+      <Text fontSize={['0.5rem', '0.9rem']} fontWeight={'bold'}>
         {title}
       </Text>
     </Link>
@@ -194,7 +194,12 @@ export const Layout = ({ children }: LayoutProps) => {
                 />
               </>
             )}
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+            <Text
+              fontSize={['0.5rem', '0.9rem']}
+              fontWeight={'bold'}
+              ml={2}
+              my={1}
+            >
               その他
             </Text>
             <LinkButton
