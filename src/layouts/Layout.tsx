@@ -19,6 +19,8 @@ import {
   MdHome,
   MdOutlineLogout,
   MdSettings,
+  MdHelp,
+  MdFeedback,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -195,6 +197,22 @@ export const Layout = ({ children }: LayoutProps) => {
             <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
               その他
             </Text>
+            <LinkButton
+              href={
+                'https://spiky-possum-bbc.notion.site/9de19fbf24b24e01b75d9dcefb2e42bd?pvs=4'
+              }
+              path={path}
+              icon={MdHelp}
+              title={'ご利用ガイド'}
+            />
+            <LinkButton
+              href={
+                'https://docs.google.com/forms/d/e/1FAIpQLSeqlby9usdMYeWjE-PNDyukPJk5ReX88oGBd4MYXpT2tV1Y8g/viewform'
+              }
+              path={path}
+              icon={MdFeedback}
+              title={'フィードバック'}
+            />
             <LinkButton
               href={'/logout'}
               path={path}
