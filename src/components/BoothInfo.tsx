@@ -37,54 +37,84 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
     }
   }
   return (
-    <Box display='flex' flexDirection={'row'} gap={3} h={'6.25rem'} w='100%'>
+    <Box
+      display='flex'
+      flexDirection={['column', 'column', 'row']}
+      gap={3}
+      h={['auto', 'auto', '6.25rem']}
+      w={['100%', '100%', '100%']}
+    >
       <Box
         flex={1}
-        h={'100%'}
+        h={['auto', 'auto', '100%']}
         bg='#1B1B23'
         borderRadius='10px'
         display='flex'
+        flexDirection={['column', 'column', 'row']}
         px={4}
         alignItems='center'
-        gap={8}
+        gap={[3, 3, 8]}
       >
         <Box
-          w={'22rem'}
-          h={'4rem'}
+          w={['100%', '100%', 64]}
+          h={['auto', 'auto', '100%']}
           ml={2}
           bg='#393939'
           borderRadius='10px'
           display='flex'
-          flexDirection='row'
+          flexDirection={['row', 'row', 'column']}
           justifyContent='center'
-          alignItems='center'
+          alignItems={'center'}
           gap={1.5}
         >
           {booth.area && (
-            <Text fontSize='1.65rem' color='white' fontWeight='bold'>
-              {booth.area}
-            </Text>
+            <Box
+              display='flex'
+              flexDirection='row'
+              alignItems='center'
+              gap={1.5}
+            >
+              <Text
+                fontSize={['1.35rem', '1.5rem']}
+                color='white'
+                fontWeight='bold'
+              >
+                {booth.area}
+              </Text>
+
+              {booth.floor && (
+                <Text
+                  fontSize={['1.35rem', '1.5rem']}
+                  color='white'
+                  fontWeight='bold'
+                >
+                  {booth.floor}階
+                </Text>
+              )}
+            </Box>
           )}
 
-          {booth.floor && (
-            <Text fontSize='1.65rem' color='white' fontWeight='bold'>
-              {booth.floor}階
+          <Box>
+            <Text
+              fontSize={['1.35rem', '1.5rem']}
+              color='white'
+              fontWeight='bold'
+            >
+              {booth.location}
             </Text>
-          )}
-
-          <Text fontSize='1.65rem' color='white' fontWeight='bold'>
-            {booth.location}
-          </Text>
+          </Box>
         </Box>
+
         <Box
           display='flex'
           flexDirection='column'
           alignItems='start'
-          gap={1.5}
+          gap={[1, 1.5]}
           flex={1}
+          mb={[3, 3, 0]}
         >
           <Text
-            fontSize='2.25rem'
+            fontSize={['1.3rem']}
             color='white'
             fontWeight='bold'
             lineHeight={'100%'}
@@ -92,19 +122,18 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
             {booth.name}
           </Text>
           <Text
-            fontSize='1.2rem'
+            fontSize={['1rem', '1rem']}
             color='white'
             fontWeight='bold'
             lineHeight={'100%'}
           >
             {booth.organizer}{' '}
-            {booth.memo ? '   [お知らせ: ' + booth.memo + ' ]' : ''}
           </Text>
         </Box>
       </Box>
       <Box
-        w={72}
-        h={'100%'}
+        w={['100%', '100%', 72]}
+        h={['auto', 'auto', '100%']}
         bg={
           booth.status === 'open'
             ? waitingTimeToColor(booth.waiting)
@@ -112,12 +141,14 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
         }
         borderRadius='10px'
         display='flex'
+        flexDirection={'column'}
         justifyContent='center'
         alignItems='center'
+        gap={1}
       >
         {booth.status === 'open' ? (
           <Text
-            fontSize='2.8rem'
+            fontSize={['1.35rem', '1.5rem']}
             color='white'
             textAlign='center'
             fontWeight='bold'
@@ -126,7 +157,7 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
             {booth.waiting}
             {booth.waiting >= 30 ? (
               <Text
-                fontSize='1.65rem'
+                fontSize={['1.35rem', '1.5rem']}
                 color='white'
                 textAlign='center'
                 fontWeight='bold'
@@ -138,7 +169,7 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
               </Text>
             ) : (
               <Text
-                fontSize='1.65rem'
+                fontSize={['1.35rem', '1.5rem']}
                 color='white'
                 textAlign='center'
                 fontWeight='bold'
@@ -152,7 +183,7 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
           </Text>
         ) : (
           <Text
-            fontSize='2.05rem'
+            fontSize={['1.35rem', '1.5rem']}
             color='white'
             textAlign='center'
             fontWeight='bold'
@@ -161,6 +192,11 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
             {statusToString(booth.status)}
           </Text>
         )}
+        <Box>
+          <Text fontSize={['1rem', '1.2rem']} color='white' fontWeight='bold'>
+            {booth.memo ? '   【お知らせ: ' + booth.memo + ' 】' : ''}
+          </Text>
+        </Box>
       </Box>
     </Box>
   )
