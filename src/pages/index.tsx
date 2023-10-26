@@ -29,6 +29,8 @@ const Home: NextPageWithLayout = () => {
         setData(res.data)
         setStatus(res.data.status)
         setWaiting(res.data.waiting)
+        setMemo(res.data.memo)
+        console.log(memo)
         setIsLoading(false)
       })
       .catch((err) => {
