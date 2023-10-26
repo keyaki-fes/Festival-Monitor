@@ -46,10 +46,14 @@ const Home: NextPageWithLayout = () => {
 
   const handleMemoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setMemo(event.target.value)
-    console.log(memo)
   }
 
   const handleUpdate = async () => {
+    if (memo && memo.length > 10) {
+      toast.error('アナウンスは10文字以下にしてください')
+      return 0
+    }
+
     setIsSubmitting(true)
     await axios
       .post(`/api/booths`, {
@@ -188,10 +192,10 @@ const Home: NextPageWithLayout = () => {
                 width='100%'
               >
                 <Text fontSize='0.9rem' fontWeight='bold' color='gray.600'>
-                  ひとことメモ
+                  アナウンス
                 </Text>
                 <Input
-                  placeholder={memo ?? 'ひとことメモ'}
+                  placeholder={memo ?? 'アナウンス'}
                   value={memo ?? ''}
                   onChange={handleMemoChange}
                 ></Input>
