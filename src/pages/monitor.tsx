@@ -138,7 +138,7 @@ export default function Home({ events }: { events: Event[] }) {
             )}
             {index != Math.ceil(booths.length / 14) && (
               <Flex direction='row' justify='space-between'>
-                <Box flex='1' pr={2}>
+                <Box flex='1' pr={2} mt={32}>
                   {booths
                     .slice(index * 14, index * 14 + 7)
                     .map((booth: Booth, i: any) => (
@@ -147,7 +147,7 @@ export default function Home({ events }: { events: Event[] }) {
                       </Box>
                     ))}
                 </Box>
-                <Box flex='1' pl={2}>
+                <Box flex='1' pl={2} mt={32}>
                   {booths
                     .slice(index * 14 + 7, index * 14 + 14)
                     .map((booth: Booth, i: any) => (
