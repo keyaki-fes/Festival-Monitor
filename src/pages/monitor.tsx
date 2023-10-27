@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Box, Text, Flex } from '@chakra-ui/react'
+import { Box, Text, Flex, Image } from '@chakra-ui/react'
 
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -137,26 +137,38 @@ export default function Home({ events }: { events: Event[] }) {
               </>
             )}
             {index != Math.ceil(booths.length / 14) && (
-              <Flex direction='row' justify='space-between'>
-                <Box flex='1' pr={2} mt={32}>
-                  {booths
-                    .slice(index * 14, index * 14 + 7)
-                    .map((booth: Booth, i: any) => (
-                      <Box key={i} mb={4}>
-                        <BoothInfo booth={booth} />
-                      </Box>
-                    ))}
+              <>
+                <Box h='32'>
+                  <Flex justifyContent={'center'}>
+                    <Image
+                      src='/header_mieet.png'
+                      alt='kita'
+                      height={32}
+                      mb={4}
+                    />
+                  </Flex>
                 </Box>
-                <Box flex='1' pl={2} mt={32}>
-                  {booths
-                    .slice(index * 14 + 7, index * 14 + 14)
-                    .map((booth: Booth, i: any) => (
-                      <Box key={i} mb={4}>
-                        <BoothInfo booth={booth} />
-                      </Box>
-                    ))}
-                </Box>
-              </Flex>
+                <Flex direction='row' justify='space-between'>
+                  <Box flex='1' pr={2}>
+                    {booths
+                      .slice(index * 14, index * 14 + 7)
+                      .map((booth: Booth, i: any) => (
+                        <Box key={i} mb={4}>
+                          <BoothInfo booth={booth} />
+                        </Box>
+                      ))}
+                  </Box>
+                  <Box flex='1' pl={2}>
+                    {booths
+                      .slice(index * 14 + 7, index * 14 + 14)
+                      .map((booth: Booth, i: any) => (
+                        <Box key={i} mb={4}>
+                          <BoothInfo booth={booth} />
+                        </Box>
+                      ))}
+                  </Box>
+                </Flex>
+              </>
             )}
           </Box>
           <Box
