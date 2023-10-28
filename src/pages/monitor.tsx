@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Box, Text, Flex, Image } from '@chakra-ui/react'
+import { Box, Text, Flex } from '@chakra-ui/react'
 
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -139,13 +139,8 @@ export default function Home({ events }: { events: Event[] }) {
             {index != Math.ceil(booths.length / 14) && (
               <>
                 <Box h='32'>
-                  <Flex justifyContent={'center'}>
-                    <Image
-                      src='/header_mieet.png'
-                      alt='kita'
-                      height={32}
-                      mb={4}
-                    />
+                  <Flex justifyContent={'center'} mb={4} height={48}>
+                    <img src='/header_mieet.png' alt='kita' />
                   </Flex>
                 </Box>
                 <Flex direction='row' justify='space-between'>

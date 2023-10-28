@@ -9,6 +9,7 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-unused-vars': 'error',
     'unused-imports/no-unused-imports': 'error',
+    '@next/next/no-img-element': 'off',
     'import/order': [
       'error',
       {
