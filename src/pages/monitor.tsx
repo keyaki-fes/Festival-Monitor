@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Text, Flex, Image } from '@chakra-ui/react'
 
 import axios from 'axios'
 import dayjs from 'dayjs'
@@ -17,7 +17,6 @@ import { monitorSettings } from '@/libs/constants'
 import { db } from '@/libs/firebaseAdmin'
 import { Booth } from '@/types/booth'
 import { Event } from '@/types/event'
-
 
 export default function Home({ events }: { events: Event[] }) {
   const [loading, setLoading] = useState<boolean>(true)
@@ -89,7 +88,7 @@ export default function Home({ events }: { events: Event[] }) {
         if (loading || !booths) {
           return 0
         }
-        if (index == Math.ceil(booths.length / 7)) {
+        if (index == Math.ceil(booths.length / 14)) {
           return 0
         }
         return index + 1
@@ -117,7 +116,7 @@ export default function Home({ events }: { events: Event[] }) {
             justifyContent='start'
             gap={3}
           >
-            {index == Math.ceil(booths.length / 7) && (
+            {index == Math.ceil(booths.length / 14) && (
               <>
                 {upcomingEvents.length == 0 ? (
                   <Text
@@ -137,15 +136,38 @@ export default function Home({ events }: { events: Event[] }) {
                 )}
               </>
             )}
-            {index != Math.ceil(booths.length / 7) && (
+            {index != Math.ceil(booths.length / 14) && (
               <>
-                {booths
-                  ?.slice(index * 7, index * 7 + 7)
-                  .map((booth: Booth, i: any) => (
-                    <div key={i}>
-                      <BoothInfo booth={booth} />
-                    </div>
-                  ))}
+                <Box h='32'>
+                  <Flex justifyContent={'center'}>
+                    <Image
+                      src='/header_mieet.png'
+                      alt='kita'
+                      height={32}
+                      mb={4}
+                    />
+                  </Flex>
+                </Box>
+                <Flex direction='row' justify='space-between'>
+                  <Box flex='1' pr={2}>
+                    {booths
+                      .slice(index * 14, index * 14 + 7)
+                      .map((booth: Booth, i: any) => (
+                        <Box key={i} mb={4}>
+                          <BoothInfo booth={booth} />
+                        </Box>
+                      ))}
+                  </Box>
+                  <Box flex='1' pl={2}>
+                    {booths
+                      .slice(index * 14 + 7, index * 14 + 14)
+                      .map((booth: Booth, i: any) => (
+                        <Box key={i} mb={4}>
+                          <BoothInfo booth={booth} />
+                        </Box>
+                      ))}
+                  </Box>
+                </Flex>
               </>
             )}
           </Box>

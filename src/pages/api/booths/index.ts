@@ -44,6 +44,7 @@ export default async function handler(
           location: data.location,
           floor: data?.floor,
           area: data?.area,
+          memo: data?.memo,
           status: data.status,
           waiting: data.waiting,
         } as Booth

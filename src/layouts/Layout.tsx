@@ -19,6 +19,8 @@ import {
   MdHome,
   MdOutlineLogout,
   MdSettings,
+  MdHelp,
+  MdFeedback,
 } from 'react-icons/md'
 
 import { festivalName } from '@/libs/constants'
@@ -61,8 +63,8 @@ const LinkButton = ({
         },
       })}
     >
-      <Icon as={icon} boxSize={4} />
-      <Text fontSize={'0.9rem'} fontWeight={'bold'}>
+      <Icon as={icon} boxSize={[3, 4]} />
+      <Text fontSize={['0.5rem', '0.9rem']} fontWeight={'bold'}>
         {title}
       </Text>
     </Link>
@@ -86,18 +88,28 @@ export const Layout = ({ children }: LayoutProps) => {
         alignItems={'center'}
         backgroundColor={'white'}
       >
-        <Text fontSize={'lg'} fontWeight={'bold'} color='gray.700' ml={2}>
+        <Text
+          fontSize={['sm', 'lg']}
+          fontWeight={'bold'}
+          color='gray.700'
+          ml={2}
+        >
           {festivalName} コンテンツ管理システム
         </Text>
       </Box>
-      <Box w={'100%'} display={'flex'} flexDirection={'row'} flex={1}>
+      <Box
+        w={'100%'}
+        display={'flex'}
+        flexDirection={['column', 'column', 'row']}
+        flex={1}
+      >
         <Box
-          w={'260px'}
+          w={['auto', 'auto', '230px']}
           minH={'100%'}
           borderRight={'1px solid'}
           borderColor={'gray.200'}
           display={'flex'}
-          flexDirection={'column'}
+          flexDirection={['row', 'row', 'column']}
           alignItems={'center'}
           boxShadow={'6px 0px 10px -8px rgba(0, 0, 0, 0.4)'}
           backgroundColor={'white'}
@@ -106,7 +118,7 @@ export const Layout = ({ children }: LayoutProps) => {
           <Box
             w={'100%'}
             display={'flex'}
-            flexDirection={'column'}
+            flexDirection={['row', 'row', 'column']}
             gap={0.5}
             mt={4}
             px={2}
@@ -182,9 +194,30 @@ export const Layout = ({ children }: LayoutProps) => {
                 />
               </>
             )}
-            <Text fontSize={'0.9rem'} fontWeight={'bold'} ml={2} my={1}>
+            <Text
+              fontSize={['0.5rem', '0.9rem']}
+              fontWeight={'bold'}
+              ml={2}
+              my={1}
+            >
               その他
             </Text>
+            <LinkButton
+              href={
+                'https://spiky-possum-bbc.notion.site/9de19fbf24b24e01b75d9dcefb2e42bd?pvs=4'
+              }
+              path={path}
+              icon={MdHelp}
+              title={'ご利用ガイド'}
+            />
+            <LinkButton
+              href={
+                'https://docs.google.com/forms/d/e/1FAIpQLSeqlby9usdMYeWjE-PNDyukPJk5ReX88oGBd4MYXpT2tV1Y8g/viewform'
+              }
+              path={path}
+              icon={MdFeedback}
+              title={'フィードバック'}
+            />
             <LinkButton
               href={'/logout'}
               path={path}
