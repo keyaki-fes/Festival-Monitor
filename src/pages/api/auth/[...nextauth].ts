@@ -7,8 +7,6 @@ import CredentialsProvider from 'next-auth/providers/credentials'
 
 import { firebaseAdmin } from '@/libs/firebaseAdmin'
 
-console.log('ENV SECRET', process.env.NEXTAUTH_SECRET)
-
 export default NextAuth({
   providers: [
     CredentialsProvider({
@@ -28,7 +26,7 @@ export default NextAuth({
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXT_PUBLIC_VERCEL_SECRET,
   session: { strategy: 'jwt' },
   callbacks: {
     jwt: async ({ token, user }) => {
