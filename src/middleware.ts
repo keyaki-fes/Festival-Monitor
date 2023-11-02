@@ -4,7 +4,10 @@ import { getToken } from 'next-auth/jwt'
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl
-  const token = (await getToken({ req, secret: process.env.SECRET })) as any
+  const token = (await getToken({
+    req,
+    secret: process.env.NEXT_PUBLIC_VERCEL_SECRET,
+  })) as any
   if (pathname === '/') {
     if (!token) {
       return NextResponse.redirect(new URL('/login', req.nextUrl))
