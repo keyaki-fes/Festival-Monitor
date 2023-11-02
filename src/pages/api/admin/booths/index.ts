@@ -17,7 +17,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(req)
+  console.log(authOptions.secret)
   const token = (await getToken({ req, secret: authOptions.secret })) as any
+  console.log(token)
   if (!token || !token.isAdmin) {
     res.status(401).json({ message: 'Unauthorized' })
     return
