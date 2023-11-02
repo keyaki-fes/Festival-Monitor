@@ -10,7 +10,7 @@ export default async function handler(
 ) {
   const token = (await getToken({
     req,
-    secret: process.env.SECRET,
+    secret: process.env.NEXT_PUBLIC_VERCEL_SECRET,
   })) as any
   // ログイン済みかつローカル環境の場合は、isAdminをtrueにする
   if (!token && location.hostname !== 'localhost') {

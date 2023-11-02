@@ -6,7 +6,7 @@ import utc from 'dayjs/plugin/utc'
 import { getToken } from 'next-auth/jwt'
 
 import { db } from '@/libs/firebaseAdmin'
-import authOptions from '@/pages/api/auth/[...nextauth]'
+//import authOptions from '@/pages/api/auth/[...nextauth]'
 import { Event } from '@/types/event'
 
 dayjs.extend(utc)
@@ -17,7 +17,10 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const token = (await getToken({ req, secret: authOptions.secret })) as any
+  const token = (await getToken({
+    req,
+    secret: process.env.NEXT_PUBLIC_VERCEL_SECRET,
+  })) as any
   if (!token || !token.isAdmin) {
     res.status(401).json({ message: 'Unauthorized' })
     return
