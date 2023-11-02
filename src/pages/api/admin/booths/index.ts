@@ -19,8 +19,14 @@ export default async function handler(
 ) {
   console.log(req)
   console.log(authOptions.secret)
-  const token = (await getToken({ req, secret: authOptions.secret })) as any
-  console.log(token)
+  let token
+  try {
+    token = (await getToken({ req, secret: authOptions.secret })) as any
+    console.log('aaaa')
+    console.log(token)
+  } catch (error) {
+    console.log(error)
+  }
   if (!token || !token.isAdmin) {
     res.status(401).json({ message: 'Unauthorized' })
     return
