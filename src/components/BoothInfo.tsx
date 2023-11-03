@@ -39,7 +39,7 @@ const BoothInfo = ({ booth }: { booth: Booth }) => {
       display='flex'
       flexDirection={['column', 'column', 'row']}
       gap={3}
-      h={['auto', 'auto', '6.25rem']}
+      h={['8rem', '8rem', '8rem']}
       w={['100%', '100%', '100%']}
     >
       <Box

@@ -104,13 +104,14 @@ export default function Home({ events }: { events: Event[] }) {
   return (
     <>
       <main>
-        <Box w='100%' h='100vh'>
+        <Box w='100%' h='auto' minHeight={'100vh'}>
           <Box
             w='100%'
-            h='93vh'
+            h='auto'
             bg='#f5f5f5'
             px={2}
             py={4}
+            mb={8}
             display='flex'
             flexDirection='column'
             justifyContent='start'
@@ -143,12 +144,12 @@ export default function Home({ events }: { events: Event[] }) {
                     <img src='/header_mieet.png' alt='kita' />
                   </Flex>
                 </Box>
-                <Flex direction='row' justify='space-between'>
+                <Flex direction='row' justify='space-between' mt={[32, 0]}>
                   <Box flex='1' pr={2}>
                     {booths
                       .slice(index * 14, index * 14 + 7)
                       .map((booth: Booth, i: any) => (
-                        <Box key={i} mb={4}>
+                        <Box key={i} mb={[32, 4]}>
                           <BoothInfo booth={booth} />
                         </Box>
                       ))}
@@ -157,7 +158,7 @@ export default function Home({ events }: { events: Event[] }) {
                     {booths
                       .slice(index * 14 + 7, index * 14 + 14)
                       .map((booth: Booth, i: any) => (
-                        <Box key={i} mb={4}>
+                        <Box key={i} mb={[32, 4]}>
                           <BoothInfo booth={booth} />
                         </Box>
                       ))}
